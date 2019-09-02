@@ -8,9 +8,10 @@
         <hr>
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-            
-                    <component :is="mode" @answered="answered($event)" @confirmed="mode = 'app-question'"></component>
-        
+				<transition name="turn" mode="out-in">
+                	<component :is="mode" @answered="answered($event)" @confirmed="mode = 'app-question'"></component>
+				</transition>
+
             </div>
         </div>
     </div>
@@ -43,3 +44,32 @@
     }
 </script>
 
+<style media="screen">
+	.turn-enter {
+
+	}
+	.turn-enter-active {
+		animation: turn-in 0.7s ease-out forwards;
+	}
+	.turn-leave {
+	}
+	.turn-leave-active {
+		animation: turn-out 0.7s ease-out forwards;
+	}
+	@keyframes turn-out {
+		from {
+			transform: rotateY(0deg);
+		}
+		to {
+			transform: rotateY(90deg);
+		}
+	}
+	@keyframes turn-in {
+		from {
+			transform: rotateY(90deg);
+		}
+		to {
+			transform: rotateY(0deg);
+		}
+	}
+</style>
